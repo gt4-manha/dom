@@ -11,7 +11,7 @@ let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 form.addEventListener("submit", adicionarTarefa);
 
 // Funções
-function adicionarTarefa() {
+function adicionarTarefa(event) {
     event.preventDefault();
 
     let texto = inputTarefa.value.trim();
@@ -70,7 +70,6 @@ function renderizarTarefas() {
             '<span class="badge text-bg-warning">Pendente</span>';
         }
 
-
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTexto);
         linha.appendChild(colunaStatus);
@@ -78,3 +77,5 @@ function renderizarTarefas() {
         listaTarefas.appendChild(linha);
     });
 }
+
+renderizarTarefas();
