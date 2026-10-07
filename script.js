@@ -91,9 +91,24 @@ function renderizarTarefas() {
         );
 
         const botaoEditar = document.createElement("button");
+        botaoEditar.textContent = "Editar";
+        botaoEditar.classList.add(
+            "btn",
+            "btn-primary",
+            "btn-sm",
+            "me-2"
+        );
+        botaoEditar.addEventListener(
+            "click",
+            function () {
+                editarTarefa(tarefa.id);
+            }
+        );
+
         const botaoExcluir = document.createElement("button");
 
         colunaAcoes.appendChild(botaoConcluir);
+        colunaAcoes.appendChild(botaoEditar);
 
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTexto);
@@ -110,6 +125,29 @@ function alterarStatus(id) {
             tarefa.concluido = !tarefa.concluido;
         }
     });
+    salvarTarefa();
+    renderizarTarefas();
+}
+
+function editarTarefa(id) {
+    const tarefa = tarefas.find(function (tarefa) {
+        return tarefa.id === id;
+    });
+
+    do {
+        const novoTexto = prompt("Digite um novo texto:", tarefa.texto);
+        if (novoTexto === null) {
+            return;
+        }
+
+        texto = novoTexto.trim();
+
+        if (texto === "") {
+            alert("A tarefa não pode ficar vazia.");
+        }
+    } while (texto === "");
+
+    tarefa.texto = texto;
     salvarTarefa();
     renderizarTarefas();
 }
