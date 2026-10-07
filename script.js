@@ -106,9 +106,23 @@ function renderizarTarefas() {
         );
 
         const botaoExcluir = document.createElement("button");
+        botaoExcluir.textContent = "Excluir";
+        botaoExcluir.classList.add(
+            "btn",
+            "btn-danger",
+            "btn-sm",
+            "me-2"
+        );
+        botaoExcluir.addEventListener(
+            "click",
+            function() {
+                excluirTarefa(tarefa.id);
+            }
+        );
 
         colunaAcoes.appendChild(botaoConcluir);
         colunaAcoes.appendChild(botaoEditar);
+        colunaAcoes.appendChild(botaoExcluir);
 
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTexto);
@@ -148,6 +162,18 @@ function editarTarefa(id) {
     } while (texto === "");
 
     tarefa.texto = texto;
+    salvarTarefa();
+    renderizarTarefas();
+}
+
+function excluirTarefa(id) {
+    const confirmar = confirm("Deseja realmente excluir essa tarefa?");
+    if (!confirmar) {
+        return;
+    }
+    tarefas = tarefas.filter(function (tarefa) {
+        return tarefa.id !== id;
+    });
     salvarTarefa();
     renderizarTarefas();
 }
